@@ -7,8 +7,30 @@ npm install vue-ui-slider
 
 ## how to use
 ```
-import UiSlider from 'vue-ui-slider'
+//local
+<template>
+<div>
+<UiSlider> 
+//content
+</UiSlider>
+</div>
+</tamplate>
+import { UiSlider } from 'vue-ui-slider'
+components: {
+    ...
+    UiSlider,
+    ...
+  }
+```
 
+## option
+```
+:index="Number" // start index
+:duration="Number" // animation duration
+:full="Boolean" // single or multi
+:infinite="Boolean" // loop infinite
+:button="Boolean" // button on off
+:pagination="Boolean" // pagination on off
 ```
 
 

@@ -1,11 +1,11 @@
 <template>
   <div class="slide-wrap">
-    <button class="prev" v-if="button" @click="arrow(-1)"></button>
-    <button class="next" v-if="button" @click="arrow(1)"></button>
-    <div class="slide">
+    <button class="prev" ref="prev" v-if="button" @click="arrow(-1)"></button>
+    <button class="next" ref="next" v-if="button" @click="arrow(1)"></button>
+    <div class="slide" ref="slide">
       <slot/>
     </div>
-    <ol class="pagination" v-if="pagination">
+    <ol class="pagination" ref="pagination" v-if="pagination">
       <li v-for="index in length" :class="{'active': index-1 === currentIndex}"></li>
     </ol>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: 'UiSlider',
+    name: 'uiSlider',
     props: {
       index: {
         type: Number,
@@ -115,13 +115,13 @@
         return result;
       },
       action(number) {
-        this.$el.childNodes[ 2 ].style.transform = 'translateX(' + number + '%)';
-        this.$el.childNodes[ 2 ].dataset.number = number;
+        this.$refs.slide.style.transform = 'translateX(' + number + '%)';
+        this.$refs.slide.dataset.number = number;
       },
       move(index) {
         this.currentIndex = index;
         this.time = new Date();
-        this.start = this.$el.childNodes[ 2 ].dataset.number;
+        this.start = this.$refs.slide.dataset.number;
         this.end = this.position(this.currentIndex);
         this.step();
         if (this.pagination) {
@@ -132,11 +132,11 @@
         }
       },
       page(index) {
-        const active = this.$el.childNodes[ 3 ].querySelector('.active');
+        const active = this.$refs.pagination.querySelector('.active');
         if (active) {
           active.classList.remove('active');
         }
-        this.$el.childNodes[ 3 ].childNodes[ index ].classList.add('active');
+        this.$refs.pagination.childNodes[ index ].classList.add('active');
       },
       arrow(direct) {
         let index = this.currentIndex + direct;
@@ -185,11 +185,11 @@
           width = 4 * 100 + '%';
           break;
       }
-      this.$el.childNodes[ 2 ].style.width = width;
+      this.$refs.slide.style.width = width;
       for (let i = 1; i < this.type; i++) {
         for (let j = 0; j < this.length; j++) {
-          const clone = this.$el.childNodes[ 2 ].childNodes[ j ].cloneNode(true);
-          this.$el.childNodes[ 2 ].append(clone);
+          const clone = this.$refs.slide.childNodes[ j ].cloneNode(true);
+          this.$refs.slide.append(clone);
         }
       }
       this.ea = this.position(-(this.length - 1));
@@ -210,10 +210,15 @@
   .slide {
     display: flex;
     height: 100%;
+    will-change: transform;
   }
 
   .slide > * {
     flex: 1;
+  }
+
+  .slide > * > img {
+    width: 100%;
   }
 
   .next {
