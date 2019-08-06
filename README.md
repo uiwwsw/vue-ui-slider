@@ -1,4 +1,5 @@
 # vue-ui-slider
+## vue infinite loop carousel
 
 ## install
 ```
