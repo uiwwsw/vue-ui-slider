@@ -1,6 +1,6 @@
 {
   "name": "vue-ui-slider",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "vue infinite loop carousel ",
   "main": "dist/vue-ui-slider.min.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "babel-loader": "^8.0.1",
     "babel-plugin-istanbul": "^5.1.1",
     "css-loader": "^1.0.0",
-    "eslint": "^3.19.0",
+    "eslint": ">=4.18.2",
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-ssense": "^0.1.0",
